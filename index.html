@@ -78,6 +78,55 @@
   .seal .mono .bar{display:inline-block;width:1px;height:44px;background:linear-gradient(transparent,#b8975a,transparent);margin:0 10px;vertical-align:middle;}
   .seal .mono small{display:block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.35em;color:#9a8b72;margin-top:8px;}
   @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* ---- Envelope ---- */
+  .envelope{
+    position:relative;width:min(84vw,340px);aspect-ratio:340/230;
+    margin:70px auto 34px;perspective:1000px;cursor:pointer;
+  }
+  .env-back{
+    position:absolute;inset:0;border-radius:4px;
+    background:linear-gradient(180deg,#f7efdf,#fbf6ec);
+    border:1px solid var(--gold-light);
+    box-shadow:0 30px 60px -28px rgba(143,113,65,.55);
+  }
+  .letter{
+    position:absolute;left:6%;right:6%;top:5%;height:90%;z-index:2;
+    background:#fffefb;border:1px solid var(--line);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    box-shadow:0 4px 14px -6px rgba(143,113,65,.3);
+    transition:transform 1.1s cubic-bezier(.3,.7,.3,1) 1.3s;
+  }
+  .letter::before{content:'';position:absolute;inset:6px;border:1px solid var(--gold-light);}
+  .letter .l-names{font-family:'Great Vibes',cursive;color:var(--gold-dark);font-size:30px;line-height:1.2;}
+  .letter .l-date{font-size:10px;margin-top:4px;}
+  .env-pocket,.env-flap{position:absolute;left:0;width:100%;display:block;overflow:visible;}
+  .env-pocket{top:0;height:100%;z-index:3;}
+  .env-flap{
+    top:0;height:69.5%;z-index:4;transform-origin:50% 0;
+    transition:transform .9s ease .55s, z-index 0s linear 1s;
+  }
+  .ribbon{position:absolute;z-index:5;transition:transform .6s ease, opacity .6s ease;
+    background:linear-gradient(90deg,#a8874f,#e3cfa6 30%,#c9ab74 50%,#e8d5b0 70%,#a8874f);
+    box-shadow:0 1px 3px rgba(143,113,65,.35);}
+  .ribbon::after{content:'';position:absolute;inset:3px;border:1px dashed rgba(255,255,255,.55);}
+  .rib-v{left:50%;top:-5px;bottom:-5px;width:22px;margin-left:-11px;transform-origin:50% 50%;}
+  .rib-h{top:50%;left:-5px;right:-5px;height:22px;margin-top:-11px;transform-origin:50% 50%;
+    background:linear-gradient(180deg,#a8874f,#e3cfa6 30%,#c9ab74 50%,#e8d5b0 70%,#a8874f);}
+  .bow{position:absolute;left:50%;top:50%;width:0;height:0;z-index:6;
+    transition:transform .7s ease, opacity .7s ease;}
+  .bow-svg{position:absolute;width:250px;height:150px;left:-125px;top:-62px;overflow:visible;}
+  .seal-scale{position:absolute;width:220px;height:220px;left:-110px;top:-110px;transform:scale(.56);}
+  .seal-scale .seal{margin:0;}
+  .tap-hint{margin-top:12px;font-size:10px;animation:bob 2s ease-in-out infinite;}
+
+  #intro.opening .rib-v{transform:scaleY(0);opacity:0;}
+  #intro.opening .rib-h{transform:scaleX(0);opacity:0;}
+  #intro.opening .bow{transform:scale(1.35) rotate(8deg);opacity:0;}
+  #intro.opening .env-flap{transform:rotateX(180deg);z-index:1;}
+  #intro.opening .letter{transform:translateY(-58%);}
+  #intro.opening .intro-foot{opacity:0;transition:opacity .5s ease;}
+
   @keyframes float{50%{transform:translateY(-6px);}}
   .open-btn{
     border:1px solid var(--gold);background:transparent;color:var(--gold-dark);
@@ -199,7 +248,18 @@
   .cbox .lbl{font-size:9px;margin-top:6px;}
 
   /* ============ LOCATION ============ */
-  .venue-icon{width:120px;height:120px;color:var(--gold);margin:10px auto 16px;}
+  .venue-photo{
+    position:relative;width:100%;aspect-ratio:3/2;margin:22px auto 20px;
+    padding:8px;background:#fff;border:1px solid var(--gold-light);
+    box-shadow:0 20px 40px -24px rgba(143,113,65,.45);
+  }
+  .venue-photo::after{content:'';position:absolute;inset:14px;border:1px solid rgba(255,255,255,.7);pointer-events:none;}
+  .venue-photo .ph{
+    position:absolute;inset:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    background:linear-gradient(135deg,#f7f0e2,#fdfaf3 50%,#efe4cf);color:var(--gold);
+  }
+  .venue-photo .ph svg{width:54px;height:54px;}
+  .venue-photo img{position:relative;display:block;width:100%;height:100%;object-fit:cover;}
   .venue-name{font-size:22px;letter-spacing:.18em;}
   .btn{
     display:inline-flex;align-items:center;gap:10px;margin-top:22px;
@@ -231,18 +291,11 @@
   .dress-row{display:flex;justify-content:center;align-items:flex-end;gap:26px;margin:24px 0 18px;}
   .dress-row svg{width:100px;height:150px;color:var(--gold-dark);}
   .dress-row .sep{width:1px;height:110px;background:var(--gold-light);}
-  .palette{display:flex;justify-content:center;gap:10px;margin:18px 0 6px;}
-  .palette span{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);box-shadow:inset 0 0 0 3px #fff;}
   .note{max-width:430px;margin:0 auto;color:#6d6252;}
   .note-strong{font-size:14px;margin-bottom:10px;color:var(--gold-dark);}
 
   /* ============ RSVP ============ */
-  .deadline{
-    display:inline-block;margin:12px 0 22px;padding:8px 26px;
-    border-top:1px solid var(--gold-light);border-bottom:1px solid var(--gold-light);
-    font-family:'Cinzel',serif;font-size:22px;letter-spacing:.15em;color:var(--gold-dark);
-  }
-  .phone-art{display:block;width:90px;height:90px;color:var(--gold-dark);margin:0 auto 18px;}
+  .phone-art{display:block;width:90px;height:90px;color:var(--gold-dark);margin:26px auto 18px;}
   .contacts{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
   .contact{min-width:0;}
   .contact{border:1px solid var(--line);padding:18px 8px;background:#fffefc;}
@@ -289,6 +342,28 @@
     .t-icon{width:62px;height:62px;}
     .dress-row svg{width:80px;height:124px;}
   }
+  /* readable capital A in script names */
+  .capA{font-family:'Pinyon Script',cursive;font-size:1.02em;padding:0 .04em 0 .02em;}
+
+  /* ============ MUSIC BUTTON ============ */
+  .music-btn{
+    position:fixed;right:16px;bottom:16px;z-index:50;
+    width:48px;height:48px;border-radius:50%;cursor:pointer;
+    background:rgba(255,254,251,.92);border:1px solid var(--gold-light);color:var(--gold-dark);
+    box-shadow:0 8px 22px -10px rgba(143,113,65,.55);
+    display:none;align-items:center;justify-content:center;
+    -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  }
+  .music-btn.show{display:flex;}
+  .music-btn svg{width:22px;height:22px;}
+  .music-btn .eq{display:none;align-items:flex-end;gap:3px;height:18px;}
+  .music-btn .eq i{display:block;width:3px;background:var(--gold);border-radius:2px;animation:eq 1s ease-in-out infinite;}
+  .music-btn .eq i:nth-child(2){animation-delay:.2s;}
+  .music-btn .eq i:nth-child(3){animation-delay:.4s;}
+  .music-btn .eq i:nth-child(4){animation-delay:.1s;}
+  @keyframes eq{0%,100%{height:4px;}50%{height:18px;}}
+  .music-btn.playing .eq{display:flex;}
+  .music-btn.playing .off{display:none;}
 </style>
 </head>
 <body class="locked">
@@ -337,10 +412,62 @@
   </defs>
 </svg>
 
-<!-- ======= INTRO ======= -->
+<!-- ======= INTRO / ENVELOPE ======= -->
 <div id="intro">
   <p class="sans">Ju keni një ftesë</p>
-  <div class="seal" id="seal">
+
+  <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Hap ftesën">
+    <div class="env-back"></div>
+
+    <div class="letter">
+      <div class="l-names">Bekim &amp; <span class="capA">A</span>nxhela</div>
+      <div class="sans l-date">26 · 12 · 2026</div>
+    </div>
+
+    <svg class="env-pocket" viewBox="0 0 340 230" preserveAspectRatio="none" aria-hidden="true">
+      <polygon points="0,0 0,230 172,122" fill="#f6eddb" stroke="#d9c29a" stroke-width=".8"/>
+      <polygon points="340,0 340,230 168,122" fill="#f6eddb" stroke="#d9c29a" stroke-width=".8"/>
+      <polygon points="0,230 340,230 170,108" fill="#faf4e8" stroke="#d9c29a" stroke-width=".8"/>
+    </svg>
+
+    <svg class="env-flap" viewBox="0 0 340 160" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="flapg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#f3e8d3"/><stop offset="1" stop-color="#fbf6ec"/>
+        </linearGradient>
+      </defs>
+      <polygon points="0,0 340,0 170,152" fill="url(#flapg)" stroke="#c9b287" stroke-width=".9"/>
+      <polyline points="14,4 170,142 326,4" fill="none" stroke="#e6dac2" stroke-width=".6"/>
+    </svg>
+
+    <div class="ribbon rib-v"></div>
+    <div class="ribbon rib-h"></div>
+
+    <div class="bow">
+      <svg class="bow-svg" viewBox="-125 -62 250 150" aria-hidden="true">
+        <defs>
+          <linearGradient id="bowg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#9c7c46"/><stop offset=".35" stop-color="#e8d5b0"/>
+            <stop offset=".6" stop-color="#b8975a"/><stop offset="1" stop-color="#8f7141"/>
+          </linearGradient>
+        </defs>
+        <!-- tails -->
+        <path d="M-5 4 L-44 86 L-33 79 L-26 93 L7 10Z" fill="url(#bowg)" stroke="#8f7141" stroke-width=".6"/>
+        <path d="M5 4 L44 86 L33 79 L26 93 L-7 10Z" fill="url(#bowg)" stroke="#8f7141" stroke-width=".6"/>
+        <path d="M-3 8 L-36 78" stroke="#fff" stroke-width="1.2" opacity=".35"/>
+        <path d="M3 8 L36 78" stroke="#fff" stroke-width="1.2" opacity=".35"/>
+        <!-- loops -->
+        <path d="M0 0 C-18 -34 -78 -58 -106 -34 C-126 -16 -112 16 -84 18 C-58 20 -24 10 0 0Z" fill="url(#bowg)" stroke="#8f7141" stroke-width=".7"/>
+        <path d="M0 0 C18 -34 78 -58 106 -34 C126 -16 112 16 84 18 C58 20 24 10 0 0Z" fill="url(#bowg)" stroke="#8f7141" stroke-width=".7"/>
+        <!-- inner folds (depth) -->
+        <path d="M0 0 C-26 -14 -64 -22 -92 -10 C-70 -2 -34 2 0 0Z" fill="#6f5530" opacity=".35"/>
+        <path d="M0 0 C26 -14 64 -22 92 -10 C70 -2 34 2 0 0Z" fill="#6f5530" opacity=".35"/>
+        <!-- satin highlights -->
+        <path d="M-10 -8 C-30 -34 -76 -48 -98 -30 C-74 -34 -38 -26 -10 -8Z" fill="#fff" opacity=".4"/>
+        <path d="M10 -8 C30 -34 76 -48 98 -30 C74 -34 38 -26 10 -8Z" fill="#fff" opacity=".4"/>
+      </svg>
+      <div class="seal-scale">
+        <div class="seal" id="seal">
     <svg viewBox="0 0 220 220" aria-hidden="true">
       <defs>
         <linearGradient id="sg" x1="0" y1="0" x2="1" y2="1">
@@ -388,10 +515,27 @@
       <small>MMXXVI</small>
     </div>
   </div>
-  <p class="script" style="font-size:40px;">Bekim &amp; Anxhela</p>
-  <p class="sans" style="margin:6px 0 26px;">26 · 12 · 2026</p>
-  <button class="open-btn" id="openBtn">HAP FTESËN</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="intro-foot">
+    <p class="script" style="font-size:40px;">Bekim &amp; <span class="capA">A</span>nxhela</p>
+    <p class="sans" style="margin:6px 0 22px;">26 · 12 · 2026</p>
+    <button class="open-btn" id="openBtn">HAP FTESËN</button>
+    <p class="sans tap-hint">Prekni vulën për ta hapur</p>
+  </div>
 </div>
+
+<!-- ======= BACKGROUND MUSIC (replace music.mp3 with the real song) ======= -->
+<audio id="bgm" src="music.mp3" loop preload="auto"></audio>
+<button class="music-btn" id="musicBtn" aria-label="Muzika">
+  <span class="eq"><i></i><i></i><i></i><i></i></span>
+  <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>
+    <path d="M3 3l18 18"/>
+  </svg>
+</button>
 
 <div class="sparkles" id="sparkles"></div>
 
@@ -423,7 +567,7 @@
 
       <p class="sans invite-text">Me shumë dashuri në zemër, ju ftojmë të festoni me ne fillimin e kapitullit tonë të ri</p>
 
-      <h1 class="names script gold-text">Bekim<span class="amp">&amp;</span>Anxhela</h1>
+      <h1 class="names script gold-text">Bekim<span class="amp">&amp;</span><span class="capA">A</span>nxhela</h1>
 
       <svg class="ornament"><use href="#divider"/></svg>
 
@@ -482,17 +626,14 @@
     <h2 class="title script">Vendodhja</h2>
     <svg class="ornament"><use href="#divider"/></svg>
     <p class="sans">Pritja &amp; Darka</p>
-    <svg class="venue-icon" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1">
-      <path d="M14 104 H106"/><path d="M20 104 V52 H100 V104"/>
-      <path d="M14 52 L60 20 L106 52 Z"/><path d="M28 50 L60 28 L92 50"/>
-      <circle cx="60" cy="40" r="5"/>
-      <path d="M50 104 V76 a10 10 0 0 1 20 0 V104"/>
-      <path d="M28 64 h12 v16 h-12z"/><path d="M80 64 h12 v16 h-12z"/>
-      <path d="M34 64 v16 M28 72 h12 M86 64 v16 M80 72 h12" stroke-width=".5"/>
-      <path d="M26 88 v16 M94 88 v16" stroke-width=".6"/>
-      <circle cx="26" cy="86" r="2"/><circle cx="94" cy="86" r="2"/>
-      <path d="M60 14 v6 M57 16 h6" stroke-width=".8"/>
-    </svg>
+    <!-- Replace restaurant.jpg with the real photo of the venue (same file name) -->
+    <div class="venue-photo">
+      <div class="ph">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+        <span class="sans">Foto e restorantit</span>
+      </div>
+      <img src="venue.png" alt="Anzotika Venue" loading="lazy" onerror="this.style.display='none'">
+    </div>
     <p class="caps venue-name">ANZOTIKA VENUE</p>
     <p class="sans" style="margin-top:6px;">Pezë e Madhe, Tiranë</p>
     <a class="btn" href="https://www.google.com/maps/place/Anzotika+Venue,+Pez%C3%AB+e+Madhe,+Albania/@41.2385481,19.6962316,17z/data=!4m6!3m5!1s0x135025006808ae57:0x25a5c694f84fbd01!8m2!3d41.2385481!4d19.6962316!16s%2Fg%2F11ldqtz9j6" target="_blank" rel="noopener">
@@ -571,11 +712,6 @@
       </div>
       <p class="caps note-strong">E bardha i takon nuses!</p>
       <p class="note">Vishni versionin tuaj më të lumtur. Buzëqeshja është aksesori ideal, ndërsa energjia juaj është e domosdoshme për pistën e kërcimit.</p>
-      <div class="palette">
-        <span style="background:#e9dcc3"></span><span style="background:#c9b287"></span>
-        <span style="background:#a39279"></span><span style="background:#6d6252"></span><span style="background:#2f2a24"></span>
-      </div>
-      <p class="sans">Ngjyra të sugjeruara</p>
     </div>
   </div>
 </section>
@@ -586,8 +722,7 @@
   <div class="wrap reveal" style="padding-top:10px;">
     <h2 class="title script">Konfirmimi</h2>
     <svg class="ornament"><use href="#divider"/></svg>
-    <p class="note">Ju lutemi të konfirmoni pjesëmarrjen tuaj deri më</p>
-    <div class="deadline">26.12.2026</div>
+    <p class="note">Ju lutemi të konfirmoni pjesëmarrjen tuaj</p>
     <svg class="phone-art" viewBox="0 0 90 90" fill="none" stroke="currentColor" stroke-width="1">
       <path d="M14 30 q31 -20 62 0 l-4 10 q-6 2 -12 -2 l-1 -8 q-15 -5 -30 0 l-1 8 q-6 4 -12 2 z"/>
       <path d="M26 42 L20 78 H70 L64 42"/>
@@ -603,7 +738,7 @@
         <div class="mini"><a href="tel:+355696877762">THIRR</a><a href="https://wa.me/355696877762" target="_blank" rel="noopener">WHATSAPP</a></div>
       </div>
       <div class="contact">
-        <div class="who script">Anxhela</div>
+        <div class="who script"><span class="capA">A</span>nxhela</div>
         <a href="tel:+355692244459">+355 69 224 4459</a>
         <div class="mini"><a href="tel:+355692244459">THIRR</a><a href="https://wa.me/355692244459" target="_blank" rel="noopener">WHATSAPP</a></div>
       </div>
@@ -627,7 +762,7 @@
   <div class="wrap reveal" style="padding-top:30px;">
     <p class="sans">Mezi presim t'ju shohim</p>
     <svg class="ornament"><use href="#divider"/></svg>
-    <p class="script closing-names gold-text">Bekim &amp; Anxhela</p>
+    <p class="script closing-names gold-text">Bekim &amp; <span class="capA">A</span>nxhela</p>
     <p class="caps" style="font-size:13px;color:var(--muted);margin-top:10px;">26 · 12 · 2026</p>
     <svg style="width:40px;height:40px;color:var(--gold);margin-top:24px;"><use href="#heart"/></svg>
   </div>
@@ -638,13 +773,63 @@
 <footer class="sans">Me dashuri · B | A</footer>
 
 <script>
-  // ---- Intro ----
-  document.getElementById('openBtn').addEventListener('click', openInvite);
-  document.getElementById('seal').addEventListener('click', openInvite);
-  function openInvite(){
-    document.getElementById('intro').classList.add('hide');
-    document.body.classList.remove('locked');
+  // ---- Background music ----
+  const bgm = document.getElementById('bgm');
+  const musicBtn = document.getElementById('musicBtn');
+  let userMuted = false, musicOk = true, fadeTimer = null;
+
+  function markMusicMissing(){ musicOk = false; musicBtn.classList.remove('show'); }
+  bgm.addEventListener('error', markMusicMissing);
+  if(bgm.error) markMusicMissing();   // error may fire before this script runs
+  bgm.addEventListener('play',  ()=> musicBtn.classList.add('playing'));
+  bgm.addEventListener('pause', ()=> musicBtn.classList.remove('playing'));
+
+  function playMusic(fade){
+    if(!musicOk) return;
+    clearInterval(fadeTimer);
+    if(fade){
+      bgm.volume = 0;
+      fadeTimer = setInterval(()=>{
+        bgm.volume = Math.min(0.6, bgm.volume + 0.03);
+        if(bgm.volume >= 0.6) clearInterval(fadeTimer);
+      }, 100);
+    } else {
+      bgm.volume = 0.6;
+    }
+    const p = bgm.play();
+    if(p && p.catch) p.catch(()=>{ if(bgm.error) markMusicMissing(); /* else: blocked, button stays "off" */ });
   }
+
+  musicBtn.addEventListener('click', ()=>{
+    if(bgm.paused){ userMuted = false; playMusic(false); }
+    else { userMuted = true; bgm.pause(); }
+  });
+
+  // pause when the tab/app is in background, resume when back
+  let wasPlaying = false;
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.hidden){ wasPlaying = !bgm.paused; bgm.pause(); }
+    else if(wasPlaying && !userMuted){ playMusic(false); }
+  });
+
+  // ---- Intro / envelope ----
+  const intro = document.getElementById('intro');
+  let opened = false;
+  function openInvite(){
+    if(opened) return;
+    opened = true;
+    playMusic(true);                       // must start inside the tap (mobile autoplay rules)
+    intro.classList.add('opening');        // ribbon unties -> flap opens -> letter rises
+    setTimeout(()=>{
+      intro.classList.add('hide');
+      document.body.classList.remove('locked');
+      if(musicOk && !bgm.error) musicBtn.classList.add('show');
+    }, 3000);
+  }
+  document.getElementById('openBtn').addEventListener('click', openInvite);
+  const env = document.getElementById('envelope');
+  env.addEventListener('click', openInvite);
+  env.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openInvite(); } });
 
   // ---- Sparkles ----
   const sp = document.getElementById('sparkles');
